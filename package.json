@@ -1,0 +1,53 @@
+{
+  "name": "@yosodev/whiskerz",
+  "version": "1.0.0",
+  "description": "A fully-typed event bus for TypeScript",
+  "repository": "https://github.com/yosoDev/whiskerz",
+  "main": "dist/whiskerz.cjs.js",
+  "module": "dist/whiskerz.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite test",
+    "build": "vite build",
+    "code:fix": "pnpm format && pnpm lint",
+    "code:check": "pnpm format:check && pnpm lint:check",
+    "format": "prettier --write src/ tests/ **/*.md",
+    "format:check": "prettier --check src/ tests/ **/*.md",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "test": "vitest",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "events",
+    "event bus",
+    "message"
+  ],
+  "author": "yosoDev",
+  "license": "MIT",
+  "packageManager": "pnpm@10.5.2",
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.9",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-perfectionist": "^4.9.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "happy-dom": "^17.2.2",
+    "husky": "^9.1.7",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3",
+    "vitest": "^3.0.7"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  }
+}
