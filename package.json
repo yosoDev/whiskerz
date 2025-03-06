@@ -19,7 +19,8 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "test": "vitest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prepublishOnly": "pnpm build"
   },
   "keywords": [
     "events",
