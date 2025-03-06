@@ -9,11 +9,11 @@ It also comes with an Event Bus specializing in communicating between different 
 ## Installation
 
 ```sh
-pnpm add @yosoDev/whiskerz
+pnpm add @yosodev/whiskerz
 # or
-npm install @yosoDev/whiskerz
+npm install @yosodev/whiskerz
 # or
-yarn add @yosoDev/whiskerz
+yarn add @yosodev/whiskerz
 ```
 
 ## Usage
@@ -123,7 +123,7 @@ const myEventBus = new WindowMessageEventBus<MyEventMap>(
 )
 
 beforeUnmount(() => {
-  // remove event listener in window
+  // remove event listener on window object
   myEventBus.release()
 })
 ```
