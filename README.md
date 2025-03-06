@@ -32,11 +32,13 @@ type MyEventMap = {
 }
 ```
 
-The payloads are validated with Zod.
+The payloads are validated with [Zod](https://zod.dev/).
 For that, schemas matching the event map have to be defined.
 The `EventSchemas` type can be used to make schema definition easier.
 
 ```ts
+import { z } from 'zod'
+
 const schemas = {
   message: z.object({
     content: z.string(),
@@ -104,7 +106,7 @@ The `targetOrigin` is passed directly to `postMessage`.
 
 Each instance of `WindowMessageEventBus` can have either a `PARENT` role or a `CHILD` role (default).  
 An instance with the `PARENT` role will propagate any events it receives to all other `CHILD` instances
-in order to decouple children windows from each other.
+in order to decouple child windows from each other.
 
 The `WindowMessageEventBus` has the same public methods as `EventBus`.  
 It also has a `release` methods which removes the handler for the `message` event from the `Window` object.
