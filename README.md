@@ -3,8 +3,8 @@
 Whiskerz is a fully-typed Event Bus for TypeScript.
 It also comes with an Event Bus specializing in communicating between different Window objects based on `window.postMessage`.
 
-![npm version](https://img.shields.io/npm/v/@yosodev/whiskerz)
-![license](https://img.shields.io/github/license/yosoDev/whiskerz)
+[![npm version](https://img.shields.io/npm/v/@yosodev/whiskerz)](https://www.npmjs.com/package/@yosodev/whiskerz)
+[![license](https://img.shields.io/github/license/yosoDev/whiskerz)](LICENSE)
 
 ## Installation
 
@@ -18,7 +18,7 @@ yarn add @yosodev/whiskerz
 
 ## Usage
 
-Both `EventBus` and `WindowMessageEventBus` require an event map.  
+Both `EventBus` and `WindowMessageEventBus` require an event map.
 An event map is a record with the event name (`string`) as the key and any payload as the value.
 
 ```ts
@@ -51,7 +51,7 @@ const schemas = {
 
 The event bus can be created with an event map and a schema definition.
 
-Event handlers can be registered with the `subscribe` method and removed again with `unsubscribe`.  
+Event handlers can be registered with the `subscribe` method and removed again with `unsubscribe`.
 Both methods take an event name from the event map as the first argument
 and a handler function, which takes the corresponding event payload as it's argument, as the second argument.
 
@@ -86,29 +86,29 @@ myEventBus.unsubscribe('message', messageHandler)
 > This feature is still incomplete and may pose some security concerns.
 > See [docs on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) for more information.
 
-This is an event bus which builds upon the regular `EventBus`.  
+This is an event bus which builds upon the regular `EventBus`.
 Internally it utilizes the `window.postMessage` method.
-It is intended to work across different instances of the event bus.  
-One use case is the communication between a document and the document inside an iframe.  
+It is intended to work across different instances of the event bus.
+One use case is the communication between a document and the document inside an iframe.
 Of course, all instances need to have the same event signatures.
 So defining the event map and schemas in a single place is highly recommended.
 
 Defining the event map works pretty much like for the regular event bus.
 It should be noted, though, that only types, that can are serializable by the structured clone algorithm,
-are supported by `window.postMessage`.  
+are supported by `window.postMessage`.
 `WindowMessageEventBus` supports most of these types.
 One noteworthy exception is the `Error` type as errors can be better passed on the event bus
 by a custom payload.
 
-`WindowMessageEventBus` requires a `Window` object to listen to `message` events on.  
+`WindowMessageEventBus` requires a `Window` object to listen to `message` events on.
 It also requires a list of target windows, on which `postMessage` is executed.
 The `targetOrigin` is passed directly to `postMessage`.
 
-Each instance of `WindowMessageEventBus` can have either a `PARENT` role or a `CHILD` role (default).  
+Each instance of `WindowMessageEventBus` can have either a `PARENT` role or a `CHILD` role (default).
 An instance with the `PARENT` role will propagate any events it receives to all other `CHILD` instances
 in order to decouple child windows from each other.
 
-The `WindowMessageEventBus` has the same public methods as `EventBus`.  
+The `WindowMessageEventBus` has the same public methods as `EventBus`.
 It also has a `release` methods which removes the handler for the `message` event from the `Window` object.
 This method can for example be used when the event bus is created inside a custom component,
 which eventually is removed from the DOM (in case of Vue components, `release` can be called in the `beforeUnmount` lifecycle hook).
