@@ -1,6 +1,6 @@
 {
   "name": "@yosodev/whiskerz",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A fully-typed event bus for TypeScript",
   "repository": "https://github.com/yosoDev/whiskerz",
   "main": "dist/whiskerz.cjs.js",
