@@ -7,12 +7,37 @@ import {
   EventKeys,
   EventMap,
   EventSchemas,
+  OnDispatchHandler,
+  OnSubscribeHandler,
+  OnUnsubscribeHandler,
 } from './event-bus.types'
 
 export class EventBus<Events extends EventMap> implements IEventBus<Events> {
   protected handlers: EventHandlers<Events> = {}
+  protected onSubscribeHandlers: OnSubscribeHandler<Events>[] = []
+  protected onUnsubscribeHandlers: OnUnsubscribeHandler<Events>[] = []
+  protected onDispatchHandlers: OnDispatchHandler<Events>[] = []
 
-  public constructor(private readonly schemas: EventSchemas<Events>) {}
+  public constructor(
+    private readonly schemas: EventSchemas<Events>,
+    readonly defaultHandlers = false,
+  ) {
+    if (!defaultHandlers) {
+      return
+    }
+
+    this.onSubscribe((event, handler) => {
+      console.log(event, handler)
+    })
+
+    this.onUnsubscribe((event, handler) => {
+      console.log(event, handler)
+    })
+
+    this.onDispatch((event, payload) => {
+      console.log(event, payload)
+    })
+  }
 
   public subscribe<EventKey extends EventKeys<Events>>(
     event: EventKey,
@@ -23,6 +48,10 @@ export class EventBus<Events extends EventMap> implements IEventBus<Events> {
     }
 
     this.handlers[event].push(handler)
+
+    this.onSubscribeHandlers.forEach((onSubscribeHandler) =>
+      onSubscribeHandler(event, handler),
+    )
   }
 
   public unsubscribe<EventKey extends EventKeys<Events>>(
@@ -36,6 +65,10 @@ export class EventBus<Events extends EventMap> implements IEventBus<Events> {
     this.handlers[event] = this.handlers[event].filter(
       (_handler) => _handler !== handler,
     )
+
+    this.onUnsubscribeHandlers.forEach((onUnsubscribeHandler) =>
+      onUnsubscribeHandler(event, handler),
+    )
   }
 
   public dispatch<EventKey extends EventKeys<Events>>(
@@ -48,6 +81,10 @@ export class EventBus<Events extends EventMap> implements IEventBus<Events> {
 
     const validatedPayload = this.validatedPayload(event, payload)
 
+    this.onDispatchHandlers.forEach((onDispatchHandler) =>
+      onDispatchHandler<EventKey>(event, payload),
+    )
+
     if (!this.handlers[event]) {
       return
     }
@@ -55,6 +92,18 @@ export class EventBus<Events extends EventMap> implements IEventBus<Events> {
     for (const handler of this.handlers[event]) {
       handler(validatedPayload)
     }
+  }
+
+  public onSubscribe(handler: OnSubscribeHandler<Events>) {
+    this.onSubscribeHandlers.push(handler)
+  }
+
+  public onUnsubscribe(handler: OnUnsubscribeHandler<Events>) {
+    this.onUnsubscribeHandlers.push(handler)
+  }
+
+  public onDispatch(handler: OnDispatchHandler<Events>) {
+    this.onDispatchHandlers.push(handler)
   }
 
   protected validatedPayload<EventKey extends EventKeys<Events>>(

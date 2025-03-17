@@ -1,4 +1,11 @@
-import { EventHandler, EventKeys, EventMap } from './event-bus.types'
+import {
+  EventHandler,
+  EventKeys,
+  EventMap,
+  OnDispatchHandler,
+  OnSubscribeHandler,
+  OnUnsubscribeHandler,
+} from './event-bus.types'
 
 export interface IEventBus<Events extends EventMap> {
   subscribe: <EventKey extends EventKeys<Events>>(
@@ -15,4 +22,10 @@ export interface IEventBus<Events extends EventMap> {
     event: EventKey,
     payload: Events[EventKey],
   ) => void
+
+  onSubscribe: (handler: OnSubscribeHandler<Events>) => void
+
+  onUnsubscribe: (handler: OnUnsubscribeHandler<Events>) => void
+
+  onDispatch: (handler: OnDispatchHandler<Events>) => void
 }

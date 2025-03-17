@@ -15,8 +15,9 @@ export class WindowMessageEventBus<
     private readonly currentWindow: Window,
     private readonly targets: WindowData[],
     role?: EventBusRole,
+    readonly defaultHandlers = false,
   ) {
-    super(schemas)
+    super(schemas, defaultHandlers)
 
     this.identifier = crypto.randomUUID()
     this.role = role ?? EventBusRole.CHILD

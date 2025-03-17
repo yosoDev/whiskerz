@@ -130,6 +130,31 @@ beforeUnmount(() => {
 })
 ```
 
+### Debug Hooks
+
+There a three hooks available:
+
+- `onSubscribe`, `onUnsubscribe`: the callback receives the event key as the first argument and the event handler as the second argument.
+- `onDispatched`: the callback receives the event key as the first argument and the payload as the second argument.
+
+Default handlers, that simply log the data to the console, can be activated
+by passing `true` as the last argument when creating an event bus instance.
+
+```ts
+const myEventBus = new EventBus<MyEventMap>(
+  schemas,
+  true, // <--
+)
+
+const myWindowMessageEventBus = new WindowMessageEventBus<MyEventMap>(
+  schemas,
+  window, // current window
+  [],
+  EventBusRole.PARENT,
+  true, // <--
+)
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
