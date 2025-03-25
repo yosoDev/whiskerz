@@ -62,7 +62,7 @@ describe('WindowMessageEventBus', async () => {
     })
   })
 
-  it('should propagate child events to other childs', async () => {
+  it('should propagate child events to other children', async () => {
     const { childWindowOne, childWindowTwo, parentWindow } = createWindows()
 
     const parentEventBus = new WindowMessageEventBus<TestEventMap>(
