@@ -19,12 +19,28 @@ export class WindowMessageEventBus<
   ) {
     super(schemas, defaultHandlers)
 
-    this.identifier = crypto.randomUUID()
+    this.identifier = this.getRandomIdentifier()
     this.role = role ?? EventBusRole.CHILD
 
     this.handleEventBound = this.handleEvent.bind(this)
 
     this.registerEventListener()
+  }
+
+  private getRandomIdentifier(): string {
+    if (typeof crypto.randomUUID === 'function') {
+      return crypto.randomUUID()
+    }
+
+    const chars =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let result = ''
+
+    for (let i = 0; i < 16; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
+
+    return result
   }
 
   public release(): void {
