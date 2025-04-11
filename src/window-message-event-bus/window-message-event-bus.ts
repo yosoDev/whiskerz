@@ -12,8 +12,8 @@ export class WindowMessageEventBus<
 
   public constructor(
     schemas: EventSchemas<Events>,
-    private readonly currentWindow: Window,
-    private readonly targets: WindowData[],
+    private currentWindow: Window,
+    private targets: WindowData[],
     role?: EventBusRole,
     readonly defaultHandlers = false,
   ) {
@@ -41,6 +41,39 @@ export class WindowMessageEventBus<
     }
 
     return result
+  }
+
+  public getCurrentWindow(): Window {
+    return this.currentWindow
+  }
+
+  public setCurrentWindow(window: Window) {
+    this.unregisterEventListener()
+
+    this.currentWindow = window
+
+    this.registerEventListener()
+  }
+
+  public getTargetWindows(): WindowData[] {
+    return this.targets
+  }
+
+  public setTargetWindows(windows: WindowData[]) {
+    this.targets.length = 0
+    this.targets.push(...windows)
+  }
+
+  public addTargetWindow(window: WindowData) {
+    this.targets.push(window)
+  }
+
+  public removeTargetWindow(window: Window) {
+    const index = this.targets.findIndex(({ target }) => target === window)
+
+    if (index !== -1) {
+      this.targets.splice(index, 1)
+    }
   }
 
   public release(): void {
