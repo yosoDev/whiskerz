@@ -130,7 +130,7 @@ beforeUnmount(() => {
 })
 ```
 
-### Updating window objects after creating an instance of `WindowMessageEventBus`
+#### Updating window objects after creating an instance of `WindowMessageEventBus`
 
 There are a set of methods for getting and updating the current window object as well as target window objects:
 

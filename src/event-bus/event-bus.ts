@@ -26,17 +26,68 @@ export class EventBus<Events extends EventMap> implements IEventBus<Events> {
       return
     }
 
-    this.onSubscribe((event, handler) => {
-      console.log(event, handler)
-    })
+    this.onSubscribe((event, handler) =>
+      this.logSubscriptionAction('subscribe', event, handler),
+    )
 
-    this.onUnsubscribe((event, handler) => {
-      console.log(event, handler)
-    })
+    this.onUnsubscribe((event, handler) =>
+      this.logSubscriptionAction('unsubscribe', event, handler),
+    )
 
-    this.onDispatch((event, payload) => {
-      console.log(event, payload)
-    })
+    this.onDispatch((event, payload) => this.logDispatchAction(event, payload))
+  }
+
+  private logSubscriptionAction<EventKey extends EventKeys<Events>>(
+    action: 'subscribe' | 'unsubscribe',
+    eventKey: EventKey,
+    handler: EventHandler<Events[EventKey]>,
+  ) {
+    const emoji = action === 'subscribe' ? '🟢' : '🔴'
+    const timestamp = new Date().toLocaleTimeString()
+
+    const handlerName = handler.name || 'anonymous'
+    const handlerCodeLines = handler.toString().split('\n')
+
+    const handlerCodePreview =
+      handlerCodeLines.length <= 5
+        ? handlerCodeLines.join('\n')
+        : `${handlerCodeLines.slice(0, 5).join('\n').trim()}\n...`
+
+    console.log(
+      `[Whiskerz] %c${emoji} ${action}%c @ ${timestamp} %c→ Event: %c${eventKey}%c | Handler:\n%c${handlerName}%c → ${handlerCodePreview}\n`,
+      'font-weight: bold; text-transform: uppercase;',
+      'color: gray;',
+      '',
+      'color: cornflowerblue; font-weight: bold;',
+      '',
+      'color: deeppink;',
+      '',
+      handler,
+    )
+  }
+
+  private logDispatchAction<EventKey extends EventKeys<Events>>(
+    eventKey: EventKey,
+    payload: Events[EventKey],
+  ) {
+    const timestamp = new Date().toLocaleTimeString()
+
+    const payloadLines = JSON.stringify(payload, null, 2).split('\n')
+    const payloadPreview =
+      payloadLines.length <= 5
+        ? payloadLines.join('\n')
+        : `${payloadLines.slice(0, 5).join('\n').trim()}\n...`
+
+    console.log(
+      `[Whiskerz] %c📦 dispatch%c @ ${timestamp} %c→ Event: %c${eventKey}%c | Payload:\n%c${payloadPreview}\n`,
+      'font-weight: bold; text-transform: uppercase;',
+      'color: gray;',
+      '',
+      'color: cornflowerblue; font-weight: bold;',
+      '',
+      'color: deeppink;',
+      payload,
+    )
   }
 
   public subscribe<EventKey extends EventKeys<Events>>(
