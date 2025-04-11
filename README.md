@@ -3,8 +3,9 @@
 Whiskerz is a fully-typed Event Bus for TypeScript.
 It also comes with an Event Bus specializing in communicating between different Window objects based on `window.postMessage`.
 
-[![npm version](https://img.shields.io/npm/v/@yosodev/whiskerz)](https://www.npmjs.com/package/@yosodev/whiskerz)
+![workflow](https://github.com/yosoDev/whiskerz/actions/workflows/test_build.yml/badge.svg?branch=main)
 [![license](https://img.shields.io/github/license/yosoDev/whiskerz)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@yosodev/whiskerz)](https://www.npmjs.com/package/@yosodev/whiskerz)
 
 ## Installation
 
