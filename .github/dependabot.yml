@@ -5,3 +5,9 @@ updates:
     schedule:
       interval: "daily"
     versioning-strategy: increase
+    groups:
+      eslint:
+        patterns:
+          - "@eslint*"
+          - "@typescript-eslint/*"
+          - "typescript-eslint"
