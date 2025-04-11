@@ -109,7 +109,7 @@ An instance with the `PARENT` role will propagate any events it receives to all 
 in order to decouple child windows from each other.
 
 The `WindowMessageEventBus` has the same public methods as `EventBus`.
-It also has a `release` methods which removes the handler for the `message` event from the `Window` object.
+It also has a `release` method which removes the handler for the `message` event from the `Window` object.
 This method can for example be used when the event bus is created inside a custom component,
 which eventually is removed from the DOM (in case of Vue components, `release` can be called in the `beforeUnmount` lifecycle hook).
 
@@ -128,6 +128,35 @@ beforeUnmount(() => {
   // remove event listener on window object
   myEventBus.release()
 })
+```
+
+### Updating window objects after creating an instance of `WindowMessageEventBus`
+
+There are a set of methods for getting and updating the current window object as well as target window objects:
+
+```ts
+// returns the Window object that was passed as the current window
+myEventBus.getCurrentWindow()
+
+// returns all registered targets
+myEventBus.getTargetWindows()
+
+// sets the current window
+myEventBus.setCurrentWindow(newCurrentWindow)
+
+// replaces all registered targets
+// note that only the contents of the targets list are replaced, not the list itself
+myEventBus.setTargetWindows([
+  { target: childAWindow, targetOrigin: '*' },
+  { target: childBWindow, targetOrigin: '*' },
+])
+
+// adds a new target window
+myEventBus.addTargetWindow({ target: newChildWindow, targetOrigin: '*' })
+
+// removes a target window
+// note that only the Window object itself is passed here
+myEventBus.removeTargetWindow(oldChildWindow)
 ```
 
 ### Debug Hooks
