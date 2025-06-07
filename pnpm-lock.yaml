@@ -10,7 +10,7 @@ importers:
     dependencies:
       zod:
         specifier: ^3.24.3
-        version: 3.25.49
+        version: 3.25.56
     devDependencies:
       '@eslint/js':
         specifier: ^9.25.0
@@ -1426,8 +1426,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@3.25.49:
-    resolution: {integrity: sha512-JMMPMy9ZBk3XFEdbM3iL1brx4NUSejd6xr3ELrrGEfGb355gjhiAWtG3K5o+AViV/3ZfkIrCzXsZn6SbLwTR8Q==}
+  zod@3.25.56:
+    resolution: {integrity: sha512-rd6eEF3BTNvQnR2e2wwolfTmUTnp70aUTqr0oaGbHifzC3BKJsoV+Gat8vxUMR1hwOKBs6El+qWehrHbCpW6SQ==}
 
 snapshots:
 
@@ -2739,4 +2739,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@3.25.49: {}
+  zod@3.25.56: {}
